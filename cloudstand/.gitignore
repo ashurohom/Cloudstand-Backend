@@ -1,0 +1,48 @@
+# Virtual Environment
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment Variables
+.env
+
+# Database
+db.sqlite3
+
+# Logs
+*.log
+
+# Django Static Files
+staticfiles/
+
+# Media Files (uploaded files)
+media/
+
+# IDE
+.vscode/
+.idea/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Python Packaging
+*.egg-info/
+dist/
+build/
+
+# Pytest
+.pytest_cache/
+
+# Coverage
+.coverage
+htmlcov/
+
+# Migrations (Optional)
+# Uncomment only if you don't want migrations in Git
+# */migrations/*
+# !*/migrations/__init__.py
