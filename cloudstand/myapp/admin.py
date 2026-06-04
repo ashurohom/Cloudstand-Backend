@@ -1,3 +1,16 @@
 from django.contrib import admin
+from .models import HeroSlider
 
-# Register your models here.
+
+@admin.register(HeroSlider)
+class HeroSliderAdmin(admin.ModelAdmin):
+
+    list_display = (
+        'id',
+        'title',
+        'created_at'
+    )
+
+    search_fields = (
+        'title',
+    )
