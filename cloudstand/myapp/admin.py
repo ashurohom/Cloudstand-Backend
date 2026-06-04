@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import HeroSlider, ContactInquiry, OpenRole
+from .models import HeroSlider, ContactInquiry, OpenRole, JobApplication
 
 
 @admin.register(HeroSlider)
@@ -67,4 +67,37 @@ class OpenRoleAdmin(admin.ModelAdmin):
         'title',
         'location',
         'experience'
+    )    
+
+
+@admin.register(JobApplication)
+class JobApplicationAdmin(admin.ModelAdmin):
+
+    list_display = (
+        'id',
+        'name',
+        'role_title',
+        'email',
+        'experience',
+        'status',
+        'applied_at'
+    )
+
+    list_filter = (
+        'status',
+        'applied_at'
+    )
+
+    search_fields = (
+        'name',
+        'email',
+        'role_title'
+    )
+
+    list_editable = (
+        'status',
+    )
+
+    readonly_fields = (
+        'applied_at',
     )    

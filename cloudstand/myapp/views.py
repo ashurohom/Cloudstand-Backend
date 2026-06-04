@@ -1,8 +1,14 @@
+from rest_framework.parsers import (
+    MultiPartParser,
+    FormParser
+)
+
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .models import HeroSlider, OpenRole
-from .serializers import HeroSliderSerializer, ContactInquirySerializer, OpenRoleSerializer
+from .models import HeroSlider, OpenRole, JobApplication
+from .serializers import HeroSliderSerializer, ContactInquirySerializer, OpenRoleSerializer, JobApplicationSerializer
 
 
 class TestAPIView(APIView):
@@ -76,3 +82,37 @@ class OpenRoleAPIView(APIView):
         )
 
         return Response(serializer.data)    
+    
+
+class ApplyRoleAPIView(APIView):
+
+    parser_classes = (
+        MultiPartParser,
+        FormParser
+    )
+
+    def post(self, request):
+
+        serializer = JobApplicationSerializer(
+            data=request.data
+        )
+
+        if serializer.is_valid():
+
+            serializer.save()
+
+            return Response(
+                {
+                    "status": True,
+                    "message": "Application submitted successfully"
+                },
+                status=status.HTTP_201_CREATED
+            )
+
+        return Response(
+            {
+                "status": False,
+                "errors": serializer.errors
+            },
+            status=status.HTTP_400_BAD_REQUEST
+        )    

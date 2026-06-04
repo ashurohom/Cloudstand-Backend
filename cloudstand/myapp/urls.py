@@ -4,7 +4,8 @@ from .views import (
     TestAPIView,
     HeroSliderAPIView,
     ContactInquiryAPIView,
-    OpenRoleAPIView 
+    OpenRoleAPIView,
+    ApplyRoleAPIView,
 )
 
 urlpatterns = [
@@ -31,5 +32,11 @@ urlpatterns = [
         'open-roles/',
         OpenRoleAPIView.as_view(),
         name='open-roles'
+    ),
+
+    path(
+        'apply-role/',
+        ApplyRoleAPIView.as_view(),
+        name='apply-role'
     ),
 ]
