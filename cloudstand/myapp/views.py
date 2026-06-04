@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .models import HeroSlider
-from .serializers import HeroSliderSerializer, ContactInquirySerializer
+from .models import HeroSlider, OpenRole
+from .serializers import HeroSliderSerializer, ContactInquirySerializer, OpenRoleSerializer
 
 
 class TestAPIView(APIView):
@@ -59,3 +59,20 @@ class ContactInquiryAPIView(APIView):
             "status": False,
             "errors": serializer.errors
         }, status=400)    
+    
+
+
+class OpenRoleAPIView(APIView):
+
+    def get(self, request):
+
+        roles = OpenRole.objects.filter(
+            is_active=True
+        )
+
+        serializer = OpenRoleSerializer(
+            roles,
+            many=True
+        )
+
+        return Response(serializer.data)    

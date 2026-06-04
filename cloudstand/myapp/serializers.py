@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import HeroSlider, ContactInquiry
+from .models import HeroSlider, ContactInquiry, OpenRole
 
 
 class HeroSliderSerializer(serializers.ModelSerializer):
@@ -41,3 +41,18 @@ class ContactInquirySerializer(serializers.ModelSerializer):
             'service_interested',
             'message'
         ]
+
+
+class OpenRoleSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = OpenRole
+        fields = [
+            'id',
+            'title',
+            'location',
+            'type',
+            'experience',
+            'summary',
+            'created_at'
+        ]        

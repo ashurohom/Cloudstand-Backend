@@ -3,7 +3,8 @@ from django.urls import path
 from .views import (
     TestAPIView,
     HeroSliderAPIView,
-    ContactInquiryAPIView
+    ContactInquiryAPIView,
+    OpenRoleAPIView 
 )
 
 urlpatterns = [
@@ -20,9 +21,15 @@ urlpatterns = [
         name='hero-slider'
     ),
 
-        path(
+    path(
         'contact-inquiry/',
         ContactInquiryAPIView.as_view(),
         name='contact-inquiry'
+    ),
+
+    path(
+        'open-roles/',
+        OpenRoleAPIView.as_view(),
+        name='open-roles'
     ),
 ]

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import HeroSlider, ContactInquiry
+from .models import HeroSlider, ContactInquiry, OpenRole
 
 
 @admin.register(HeroSlider)
@@ -40,4 +40,31 @@ class ContactInquiryAdmin(admin.ModelAdmin):
     list_filter = (
         'is_contacted',
         'created_at'
+    )    
+
+
+
+
+@admin.register(OpenRole)
+class OpenRoleAdmin(admin.ModelAdmin):
+
+    list_display = (
+        'id',
+        'title',
+        'location',
+        'type',
+        'experience',
+        'is_active',
+        'created_at'
+    )
+
+    list_filter = (
+        'is_active',
+        'type'
+    )
+
+    search_fields = (
+        'title',
+        'location',
+        'experience'
     )    
