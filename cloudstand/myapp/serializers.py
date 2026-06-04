@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import HeroSlider, ContactInquiry, OpenRole, JobApplication
+from .models import HeroSlider, ContactInquiry, OpenRole, JobApplication, LiveWebinar
 
 
 class HeroSliderSerializer(serializers.ModelSerializer):
@@ -73,3 +73,29 @@ class JobApplicationSerializer(serializers.ModelSerializer):
             'cover_note',
             'resume'
         ]
+
+
+class LiveWebinarSerializer(serializers.ModelSerializer):
+
+    image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = LiveWebinar
+        fields = [
+            'date',
+            'time',
+            'speaker',
+            'venue',
+            'image'
+        ]
+
+    def get_image(self, obj):
+
+        request = self.context.get('request')
+
+        if obj.image:
+            return request.build_absolute_uri(
+                obj.image.url
+            )
+
+        return None        

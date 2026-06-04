@@ -7,8 +7,8 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .models import HeroSlider, OpenRole, JobApplication
-from .serializers import HeroSliderSerializer, ContactInquirySerializer, OpenRoleSerializer, JobApplicationSerializer
+from .models import HeroSlider, OpenRole, LiveWebinar
+from .serializers import HeroSliderSerializer, ContactInquirySerializer, OpenRoleSerializer, JobApplicationSerializer, LiveWebinarSerializer
 
 
 class TestAPIView(APIView):
@@ -116,3 +116,22 @@ class ApplyRoleAPIView(APIView):
             },
             status=status.HTTP_400_BAD_REQUEST
         )    
+    
+
+class LiveWebinarAPIView(APIView):
+
+    def get(self, request):
+
+        webinar = LiveWebinar.objects.filter(
+            is_active=True
+        ).order_by('-id').first()
+
+        if not webinar:
+            return Response({})
+
+        serializer = LiveWebinarSerializer(
+            webinar,
+            context={'request': request}
+        )
+
+        return Response(serializer.data)
