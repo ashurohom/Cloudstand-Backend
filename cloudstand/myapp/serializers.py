@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import HeroSlider
+from .models import HeroSlider, ContactInquiry
 
 
 class HeroSliderSerializer(serializers.ModelSerializer):
@@ -25,3 +25,19 @@ class HeroSliderSerializer(serializers.ModelSerializer):
             )
 
         return None
+    
+
+
+class ContactInquirySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ContactInquiry
+        fields = [
+            'id',
+            'name',
+            'email',
+            'company',
+            'phone',
+            'service_interested',
+            'message'
+        ]

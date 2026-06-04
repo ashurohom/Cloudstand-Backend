@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .models import HeroSlider
-from .serializers import HeroSliderSerializer
+from .serializers import HeroSliderSerializer, ContactInquirySerializer
 
 
 class TestAPIView(APIView):
@@ -35,3 +35,27 @@ class HeroSliderAPIView(APIView):
             "message": "Hero Slider Data",
             "data": serializer.data
         })
+    
+
+
+class ContactInquiryAPIView(APIView):
+
+    def post(self, request):
+
+        serializer = ContactInquirySerializer(
+            data=request.data
+        )
+
+        if serializer.is_valid():
+
+            serializer.save()
+
+            return Response({
+                "status": True,
+                "message": "Inquiry submitted successfully"
+            })
+
+        return Response({
+            "status": False,
+            "errors": serializer.errors
+        }, status=400)    
