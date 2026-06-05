@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import HeroSlider, ContactInquiry, OpenRole, JobApplication, LiveWebinar, WebinarRegistration
+from .models import HeroSlider, ContactInquiry, OpenRole, JobApplication, LiveWebinar, WebinarRegistration, VideoShowcase
 
 
 class HeroSliderSerializer(serializers.ModelSerializer):
@@ -82,6 +82,7 @@ class LiveWebinarSerializer(serializers.ModelSerializer):
     class Meta:
         model = LiveWebinar
         fields = [
+            'title',
             'date',
             'time',
             'speaker',
@@ -116,3 +117,13 @@ class WebinarRegistrationSerializer(serializers.ModelSerializer):
             'linkedin_url',
             'webinar_title'
         ]    
+
+
+class VideoShowcaseSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = VideoShowcase
+
+        fields = [
+            'youtube_url'
+        ]        

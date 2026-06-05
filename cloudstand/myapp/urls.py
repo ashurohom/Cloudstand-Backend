@@ -7,7 +7,9 @@ from .views import (
     OpenRoleAPIView,
     ApplyRoleAPIView,
     LiveWebinarAPIView,
+    VideoShowcaseAPIView,
     WebinarRegistrationAPIView,
+    VideoShowcaseAPIView,
 )
 
 urlpatterns = [
@@ -52,5 +54,11 @@ urlpatterns = [
         'webinar-registration/',
         WebinarRegistrationAPIView.as_view(),
         name='webinar-registration'
+    ),
+
+    path(
+        'video-showcase/',
+        VideoShowcaseAPIView.as_view(),
+        name='video-showcase'
     ),
 ]

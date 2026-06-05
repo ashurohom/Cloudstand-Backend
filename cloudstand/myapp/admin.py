@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import HeroSlider, ContactInquiry, OpenRole, JobApplication, LiveWebinar, WebinarRegistration
+from .models import HeroSlider, ContactInquiry, OpenRole, JobApplication, LiveWebinar, WebinarRegistration, VideoShowcase
 
 
 @admin.register(HeroSlider)
@@ -108,6 +108,7 @@ class LiveWebinarAdmin(admin.ModelAdmin):
 
     list_display = (
         'id',
+        'title',
         'speaker',
         'date',
         'time',
@@ -121,6 +122,7 @@ class LiveWebinarAdmin(admin.ModelAdmin):
 
     search_fields = (
         'speaker',
+        'title',
         'venue'
     )      
 
@@ -161,3 +163,33 @@ class WebinarRegistrationAdmin(
     readonly_fields = (
         'registered_at',
     )
+
+
+
+
+@admin.register(VideoShowcase)
+class VideoShowcaseAdmin(
+    admin.ModelAdmin
+):
+
+    list_display = (
+        'id',
+        'title',
+        'is_featured',
+        'is_active',
+        'created_at'
+    )
+
+    list_filter = (
+        'is_featured',
+        'is_active'
+    )
+
+    search_fields = (
+        'title',
+    )
+
+    list_editable = (
+        'is_featured',
+        'is_active'
+    )    

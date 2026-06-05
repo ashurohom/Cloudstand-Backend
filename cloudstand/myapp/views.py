@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .models import HeroSlider, OpenRole, LiveWebinar, WebinarRegistration
+from .models import HeroSlider, OpenRole, LiveWebinar, WebinarRegistration, VideoShowcase
 from .serializers import HeroSliderSerializer, ContactInquirySerializer, OpenRoleSerializer, JobApplicationSerializer, LiveWebinarSerializer, WebinarRegistrationSerializer
 
 
@@ -184,3 +184,39 @@ class WebinarRegistrationAPIView(APIView):
             },
             status=status.HTTP_400_BAD_REQUEST
         )
+    
+
+
+class VideoShowcaseAPIView(APIView):
+
+    def get(self, request):
+
+        featured_video = (
+            VideoShowcase.objects
+            .filter(
+                is_featured=True,
+                is_active=True
+            )
+            .first()
+        )
+
+        extra_videos = (
+            VideoShowcase.objects
+            .filter(
+                is_featured=False,
+                is_active=True
+            )
+        )
+
+        return Response({
+            "featured": (
+                featured_video.youtube_url
+                if featured_video
+                else ""
+            ),
+
+            "list": [
+                video.youtube_url
+                for video in extra_videos
+            ]
+        })
