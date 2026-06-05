@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import HeroSlider, ContactInquiry, OpenRole, JobApplication, LiveWebinar
+from .models import HeroSlider, ContactInquiry, OpenRole, JobApplication, LiveWebinar, WebinarRegistration
 
 
 class HeroSliderSerializer(serializers.ModelSerializer):
@@ -99,3 +99,20 @@ class LiveWebinarSerializer(serializers.ModelSerializer):
             )
 
         return None        
+    
+
+
+class WebinarRegistrationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = WebinarRegistration
+
+        fields = [
+            'id',
+            'first_name',
+            'last_name',
+            'email',
+            'phone',
+            'linkedin_url',
+            'webinar_title'
+        ]    

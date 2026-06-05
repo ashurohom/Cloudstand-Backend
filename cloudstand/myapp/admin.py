@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import HeroSlider, ContactInquiry, OpenRole, JobApplication, LiveWebinar
+from .models import HeroSlider, ContactInquiry, OpenRole, JobApplication, LiveWebinar, WebinarRegistration
 
 
 @admin.register(HeroSlider)
@@ -123,3 +123,41 @@ class LiveWebinarAdmin(admin.ModelAdmin):
         'speaker',
         'venue'
     )      
+
+
+@admin.register(
+    WebinarRegistration
+)
+class WebinarRegistrationAdmin(
+    admin.ModelAdmin
+):
+
+    list_display = (
+        'id',
+        'first_name',
+        'last_name',
+        'email',
+        'webinar_title',
+        'registration_status',
+        'registered_at'
+    )
+
+    search_fields = (
+        'first_name',
+        'last_name',
+        'email',
+        'webinar_title'
+    )
+
+    list_filter = (
+        'registration_status',
+        'registered_at'
+    )
+
+    list_editable = (
+        'registration_status',
+    )
+
+    readonly_fields = (
+        'registered_at',
+    )

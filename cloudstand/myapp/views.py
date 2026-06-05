@@ -7,8 +7,8 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .models import HeroSlider, OpenRole, LiveWebinar
-from .serializers import HeroSliderSerializer, ContactInquirySerializer, OpenRoleSerializer, JobApplicationSerializer, LiveWebinarSerializer
+from .models import HeroSlider, OpenRole, LiveWebinar, WebinarRegistration
+from .serializers import HeroSliderSerializer, ContactInquirySerializer, OpenRoleSerializer, JobApplicationSerializer, LiveWebinarSerializer, WebinarRegistrationSerializer
 
 
 class TestAPIView(APIView):
@@ -135,3 +135,52 @@ class LiveWebinarAPIView(APIView):
         )
 
         return Response(serializer.data)
+
+
+
+class WebinarRegistrationAPIView(APIView):
+
+    def post(self, request):
+
+        email = request.data.get('email')
+        webinar_title = request.data.get('webinar_title')
+
+        already_registered = WebinarRegistration.objects.filter(
+            email=email,
+            webinar_title=webinar_title
+        ).exists()
+
+        if already_registered:
+
+            return Response(
+                {
+                    "status": False,
+                    "message": "You have already registered for this webinar."
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        serializer = WebinarRegistrationSerializer(
+            data=request.data
+        )
+
+        if serializer.is_valid():
+
+            serializer.save()
+
+            return Response(
+                {
+                    "status": True,
+                    "message": "Registration Successful"
+                },
+                status=status.HTTP_201_CREATED
+            )
+
+        return Response(
+            {
+                "status": False,
+                "message": "Invalid data submitted.",
+                "errors": serializer.errors
+            },
+            status=status.HTTP_400_BAD_REQUEST
+        )
