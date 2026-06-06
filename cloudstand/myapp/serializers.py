@@ -54,8 +54,15 @@ class OpenRoleSerializer(serializers.ModelSerializer):
             'type',
             'experience',
             'summary',
+
+            'key_responsibilities',
+            'requirements',
+            'preferred',
+            'additional_advantage',
+            'benefits',
+
             'created_at'
-        ]        
+        ]       
 
 
 class JobApplicationSerializer(serializers.ModelSerializer):

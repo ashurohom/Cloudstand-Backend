@@ -45,9 +45,39 @@ class OpenRole(models.Model):
     location = models.CharField(max_length=255)
     type = models.CharField(max_length=100)
     experience = models.CharField(max_length=100)
+
     summary = models.TextField()
+
+    key_responsibilities = models.TextField(
+        blank=True,
+        help_text="Use '.' (Dot) to separate each responsibility."
+    )
+
+    requirements = models.TextField(
+        blank=True,
+        help_text="Use '.' (Dot) to separate each requirement."
+    )
+
+    preferred = models.TextField(
+        blank=True,
+        help_text="Use '.' (Dot) to separate each preferred skill."
+    )
+
+    additional_advantage = models.TextField(
+        blank=True,
+        help_text="Use '.' (Dot) to separate each additional advantage."
+    )
+
+    benefits = models.TextField(
+        blank=True,
+        help_text="Use '.' (Dot) to separate each benefit."
+    )
+
     is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
 
     class Meta:
         ordering = ['id']

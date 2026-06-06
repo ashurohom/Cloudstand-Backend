@@ -67,7 +67,37 @@ class OpenRoleAdmin(admin.ModelAdmin):
         'title',
         'location',
         'experience'
-    )    
+    )
+
+    fieldsets = (
+
+        ('Basic Information', {
+            'fields': (
+                'title',
+                'location',
+                'type',
+                'experience',
+                'summary'
+            )
+        }),
+
+        ('Job Details', {
+            'fields': (
+                'key_responsibilities',
+                'requirements',
+                'preferred',
+                'additional_advantage',
+                'benefits'
+            )
+        }),
+
+        ('Status', {
+            'fields': (
+                'is_active',
+            )
+        }),
+
+    )  
 
 
 @admin.register(JobApplication)
