@@ -10,6 +10,7 @@ from .views import (
     VideoShowcaseAPIView,
     WebinarRegistrationAPIView,
     VideoShowcaseAPIView,
+    TeamCloudStandAPIView
 )
 
 urlpatterns = [
@@ -60,5 +61,11 @@ urlpatterns = [
         'video-showcase/',
         VideoShowcaseAPIView.as_view(),
         name='video-showcase'
+    ),
+
+    path(
+        'team-cloudstand/',
+        TeamCloudStandAPIView.as_view(),
+        name='team-cloudstand'
     ),
 ]

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import HeroSlider, ContactInquiry, OpenRole, JobApplication, LiveWebinar, WebinarRegistration, VideoShowcase
+from .models import HeroSlider, ContactInquiry, OpenRole, JobApplication, LiveWebinar, WebinarRegistration, VideoShowcase, TeamCloudStand
 
 
 class HeroSliderSerializer(serializers.ModelSerializer):
@@ -127,3 +127,28 @@ class VideoShowcaseSerializer(serializers.ModelSerializer):
         fields = [
             'youtube_url'
         ]        
+
+
+
+class TeamCloudStandSerializer(serializers.ModelSerializer):
+
+    image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = TeamCloudStand
+        fields = [
+            'id',
+            'image',
+            'is_hero_image'
+        ]
+
+    def get_image(self, obj):
+
+        request = self.context.get('request')
+
+        if obj.image:
+            return request.build_absolute_uri(
+                obj.image.url
+            )
+
+        return None        

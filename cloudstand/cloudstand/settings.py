@@ -32,7 +32,11 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=True, cast=bool)
 # print("DEBUG VALUE:", DEBUG)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '165.22.210.213',
+    'localhost',
+    '127.0.0.1'
+]
 
 
 # Application definition

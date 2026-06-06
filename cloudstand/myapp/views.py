@@ -7,8 +7,8 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .models import HeroSlider, OpenRole, LiveWebinar, WebinarRegistration, VideoShowcase
-from .serializers import HeroSliderSerializer, ContactInquirySerializer, OpenRoleSerializer, JobApplicationSerializer, LiveWebinarSerializer, WebinarRegistrationSerializer
+from .models import HeroSlider, OpenRole, LiveWebinar, WebinarRegistration, VideoShowcase, TeamCloudStand
+from .serializers import HeroSliderSerializer, ContactInquirySerializer, OpenRoleSerializer, JobApplicationSerializer, LiveWebinarSerializer, WebinarRegistrationSerializer, TeamCloudStandSerializer
 
 
 class TestAPIView(APIView):
@@ -219,4 +219,40 @@ class VideoShowcaseAPIView(APIView):
                 video.youtube_url
                 for video in extra_videos
             ]
+        })
+
+
+
+class TeamCloudStandAPIView(APIView):
+
+    def get(self, request):
+
+        images = TeamCloudStand.objects.all()
+
+        hero = TeamCloudStand.objects.filter(
+            is_hero_image=True
+        ).first()
+
+        hero_image = None
+
+        if hero and hero.image:
+            hero_image = request.build_absolute_uri(
+                hero.image.url
+            )
+
+        gallery_images = []
+
+        for image in images:
+
+            if image.image:
+
+                gallery_images.append(
+                    request.build_absolute_uri(
+                        image.image.url
+                    )
+                )
+
+        return Response({
+            "heroImage": hero_image,
+            "galleryImages": gallery_images
         })

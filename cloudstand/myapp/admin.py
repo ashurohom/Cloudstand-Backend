@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import HeroSlider, ContactInquiry, OpenRole, JobApplication, LiveWebinar, WebinarRegistration, VideoShowcase
+from .models import HeroSlider, ContactInquiry, OpenRole, JobApplication, LiveWebinar, WebinarRegistration, VideoShowcase, TeamCloudStand
 
 
 @admin.register(HeroSlider)
@@ -192,4 +192,22 @@ class VideoShowcaseAdmin(
     list_editable = (
         'is_featured',
         'is_active'
+    )    
+
+
+@admin.register(TeamCloudStand)
+class TeamCloudStandAdmin(admin.ModelAdmin):
+
+    list_display = (
+        'id',
+        'is_hero_image',
+        'created_at'
+    )
+
+    list_filter = (
+        'is_hero_image',
+    )
+
+    search_fields = (
+        'id',
     )    

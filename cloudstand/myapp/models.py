@@ -1,10 +1,14 @@
 from django.db import models
+# from rich.json import args
 
 
 class HeroSlider(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    image = models.ImageField(upload_to='hero_slider/')
+    image = models.ImageField(
+        upload_to='hero_slider/',
+        help_text='Recommended image size: 1672 × 941 pixels'
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -103,7 +107,10 @@ class LiveWebinar(models.Model):
     title = models.CharField(max_length=255, default="Future of Oracle Cloud Infrastructure")
     date = models.CharField(max_length=100)
     time = models.CharField(max_length=100)
-    speaker = models.CharField(max_length=255)
+    speaker = models.CharField(
+        max_length=255,
+        help_text='For multiple speakers, separate names with a comma (,). Example: Dhananjay G, KARINA PAWAR'
+    )
     venue = models.CharField(max_length=255)
     image = models.ImageField(
         upload_to='webinars/'
@@ -187,3 +194,37 @@ class VideoShowcase(models.Model):
 
     def __str__(self):
         return self.title    
+    
+
+
+
+
+class TeamCloudStand(models.Model):
+
+    image = models.ImageField(
+        upload_to='team_cloudstand/',
+    )
+
+    is_hero_image = models.BooleanField(
+        default=False,
+        help_text='Check this option to display this image in the Hero Section.'
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    class Meta:
+        ordering = ['id']
+
+    def __str__(self):
+        return f"Team Image {self.id}"
+    
+    def save(self, *args, **kwargs):
+
+        if self.is_hero_image:
+            TeamCloudStand.objects.update(
+                is_hero_image=False
+            )
+
+        super().save(*args, **kwargs)
